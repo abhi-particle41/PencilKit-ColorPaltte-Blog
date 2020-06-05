@@ -3,8 +3,8 @@
 
 After few weeks of launch of iOS 13, we got a requirement from our client to change the tool kit used in our app for photo markup. The requirement was to replace the existing photo markup tool with the new in built markup tool of iOS same as Photos app. In Photos app Markup tool looks same as the below image.
 
-<!-- <img src="./resources/image1.jpg" width="500"> -->
-![PencilKit Image](./resources/image1.jpg)
+<img src="./resources/image1.jpg" width="400" align="center"> 
+
 
 We started searching for this tool and after some research we came to know that this tool kit is launched with iOS 13 and is called Pencil Kit. PencilKit was first introduced in WWDC 2019.
 
@@ -125,7 +125,7 @@ We can add a clear button to the clear all the markup we draw over the `CanvasVi
 ```
 After all above steps our Image Markup ViewController will look something like :
 
-![PencilKit Image](./resources/image2.jpg)
+<img src="./resources/image2.jpg" width="350" align="center"> 
 
 We can draw Markup over this image but our this implementation will work only with Apple Pencil.  we need to add one more property to our `CanvasView` to make it work with our Finger considering not every user have Apple Pencil.
 
@@ -135,8 +135,7 @@ self.canvasView.allowsFingerDrawing = true
 
 So now we can even draw over our image using our finger as well. So let me draw something over the image.
 
-![PencilKit Image](./resources/image3.jpg)
-
+<img src="./resources/image3.jpg" width="350" align="center"> 
 
 After editing we have to save our image with markup we do over the image. From `CanvasView` view get a transparent image with our drawing and we have to merge it over our existing image. For this we have written a function :
 
