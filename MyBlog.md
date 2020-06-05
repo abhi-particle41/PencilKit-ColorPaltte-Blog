@@ -4,7 +4,7 @@
 After few weeks of launch of iOS 13, we got a requirement from our client to change the tool kit used in our app for photo markup. The requirement was to replace the existing photo markup tool with the new in built markup tool of iOS same as Photos app. In Photos app Markup tool looks same as the below image.
 
 <!-- <img src="./resources/image1.jpg" width="500"> -->
-![PencilKit Image](./resources/image1.jpg{:height="36px" width="36px"})
+![PencilKit Image](./resources/image1.jpg)
 
 We started searching for this tool and after some research we came to know that this tool kit is launched with iOS 13 and is called Pencil Kit. PencilKit was first introduced in WWDC 2019.
 
