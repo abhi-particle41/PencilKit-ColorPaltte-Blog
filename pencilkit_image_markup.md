@@ -3,7 +3,7 @@
 # Drawing Over Image With PencilKit
 
 
-After a few weeks of the launch of iOS 13, we got a requirement from our client to change the existing Photo Markup Kit of our App with Apple's Inbuilt PencilKit. PencilKit's tool kit looks the same as the below image.
+After a few weeks of the launch of iOS 13, we got a requirement from our client to change the existing Photo Markup Kit of our App with Apple's Inbuilt PencilKit. PencilKit's tool kit looks same as the below image.
 
 <img src="./resources/image1.png" width="400" align="center"> 
 
