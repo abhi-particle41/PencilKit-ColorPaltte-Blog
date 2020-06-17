@@ -1,15 +1,16 @@
-After a few weeks of the launch of iOS 13, we got a requirement from our client to change the tool kit used in our app for photo markup. The requirement was to replace the existing photo markup tool with the new inbuilt markup tool of iOS the same as the Photos app. In Photos app Markup tool looks the same as the below image.
+<img src="./resources/header.jpg" align="center"> 
+
+# Drawing Over Image With PencilKit
+
+
+After a few weeks of the launch of iOS 13, we got a requirement from our client to change the existing Photo Markup Kit of our App with Apple's Inbuilt PencilKit. PencilKit's tool kit looks the same as the below image.
 
 <img src="./resources/image1.jpg" width="400" align="center"> 
 
 
-We started searching for this tool and after some research, we came to know that this tool kit is launched with iOS 13 and is called Pencil Kit. PencilKit was first introduced in WWDC 2019.
-
-
-
 ## Introduction of Pencil Kit
 
-PencilKit allows developers to easily integrate the drawing canvas view and toolkit in their applications. Pencil Kit makes it easy to incorporate hand-drawn content into iOS apps quickly and easily. Pencil Kit creates a Canvas view to draw over it using the provided tool. It provides a tool picker view to select tools for drawing.
+PencilKit allows developers to easily integrate the drawing canvas view and toolkit in their applications. Pencil Kit makes it easy to incorporate hand-drawn content into iOS apps quickly and easily. Pencil Kit creates a Canvas View to draw over it using the provided tool. It provides a tool picker view to select tools for drawing.
 
 #### PencilKit provides various tools for markup :
 1. **Eraser Tool:** Using this tool users can delete a specific object or some part of the object drawn on the Canvas.
@@ -20,35 +21,35 @@ PencilKit allows developers to easily integrate the drawing canvas view and tool
 
 ## Getting Started 
 
-\t We started the implementation of the PencilKit, our goal was to use PencilKit to draw markups over a selected image from our App and save the image with the drawn markups.
+We started the implementation of PencilKit, our goal was to use PencilKit to draw markups over a selected image from our App and save the image with the drawn markups.
 
 ### Problem Statement 
-We read many tutorials and watched videos to understand the working and implementation of the Pencil kit. All the tutorials we went through were explaining how to use the PencilKit to create a drawing app, draw over a canvas, and save the drawing. But we did not find anything related to Photo markup using the Pencil kit. We did not find any way to draw over an existing image using PencilKit and save the photo with our drawings.
+We read many tutorials and watched videos to understand the working and implementation of the PencilKit. All the tutorials we went through were explaining the use of PencilKit to draw over a blank canvas and save the drawing. We did not find anything related to draw over an existing image using PencilKit and save the Image with drawn markups.
 
 ### Findings
-We went through the implementation details of Pencil Kit, Apple Docs, and PencilKit's Classes and subclasses and properties to find a way to insert an existing image in PencilKit's canvas view and get output image as the markup drawings drawn on our inserted image. 
+We went through the implementation details of PencilKit, Apple Docs, and PencilKit's Classes, Subclasses, and properties to find a way to insert an existing image in PencilKit's CanvasView and get the output as marked-up Image.
 
 We also tried to look for some similar third party library but, no third party tool was found which can address our problem.
 
 ### Available Approaches
-So we had two ways either to give up our tries on PencilKit and build a custom solution. We discussed with the team and decided that we will give it a try and try to build our own solution for photo mark up using PencilKit.
+We discussed with the team and decided that we will try to build a custom solution for Image Markup using PencilKit.
 
-After we long discussions and research we finalized to approaches to implement this:
-1. We will try to insert an ImageView in PencilKit's Canvas View as a SubLayer and get the output image as our input image as a Marked-up Image.
-2. Create a transparent Canvas View over an ImageView. After markup, get the markup drawing image from Canvas View and draw it over our selected Image for the desired output.
+After discussion and research we finalized two approaches for implementation:
+1. We will try to insert an ImageView in PencilKit's CanvasView as a SubLayer, and get the output as a marked-up Image.
+2. Place a transparent Canvas over an ImageView. After drawing markup, get the drawn markups as an Image from PencilKit and draw it as an overlay on our selected Image.
 
-On comparing both the approaches we found that the second approach is more suitable to solve our problem.
+On comparing both the approaches we found that the second approach is more suitable and feasible for implementation.
 
 
 ## Implementation
 
-To start with the implementation we need to import PencilKit into our project ``#import PencilKit``. We need to create a canvas view to draw with PencilKit and an ImageView. To start with we need a ViewController with 3 properties an `ImageView`, a `CanvasView`, and an `Image`.
+To start with the implementation we need to import PencilKit into our project ``#import PencilKit``. We need to create a CanvasView to draw with PencilKit and an ImageView. So we need a ViewController with 3 properties, an `ImageView`, a `CanvasView`, and an `Image`.
 ```
 @IBOutlet weak var imgView: UIImageView!
 var canvasView: PKCanvasView!
 var imgForMarkup: UIImage?
 ```
-New we will initialize the CanvasView and we will do it in *ViewDidAppear* Method :
+Now we will initialize the CanvasView and add it as subview. We will do it in *ViewDidAppear* Method :
 
 ```
 self.canvasView = PKCanvasView.init(frame: self.imgView.frame)
@@ -56,7 +57,7 @@ self.canvasView.isOpaque = false
 self.view.addSubview(self.canvasView)
 ```
 
-As per our requirements, we have to set the transparent `CanvasView` over an `ImageView` but `ImageView` covers the full screen of the ViewController but different Images showing every time in the `ImageView` will have different height and width every time and we need to draw markups over image only on over the vacant spaces remaining outside the Image rect. So we need to resize our `CanvasView` to our Image's visible rects. For doing this we will set the frame of our `CanvasView` respective of image : 
+As per our requirements, we have to place a transparent `CanvasView` over an `ImageView`. Here we have to consider that, `ImageView` frame will cover the full screen of the device but different Images showing in the `ImageView` will have different height and width ratios every time. The image will appear over some part of the ImageView and the rest of the ImageView rect will remain vacant. We need to draw markups, only over the Image, and not over the vacant spaces outside the Image rect. So we need to resize our `CanvasView` to our Image's visible rects every time we load the controller and in case if device orientation is changed. For doing this we will set the frame of our `CanvasView` respective of the image : 
 
 ```
 self.canvasView.frame = self.setSize()
@@ -110,7 +111,7 @@ if let window = self.view.window, let toolPicker = PKToolPicker.shared(for: wind
 }
 ```
 
-We can add a clear button to the clear all the markup we draw over the `CanvasView`. We can set IBAction of the button as :
+We can also add a clear button to clear all the markup we draw over the `CanvasView`. We can set  IBAction of the button as :
 ```
 @IBAction func onClear(_ sender : UIButton) {
     canvasView.drawing = PKDrawing()
@@ -120,21 +121,18 @@ We can add a clear button to the clear all the markup we draw over the `CanvasVi
     self.shapes.removeAll()
 }
 ```
-After all above steps our Image Markup ViewController will look something like :
 
-<img src="./resources/image2.jpg" width="350" align="center"> 
-
-We can draw Markup over this image, but our implementation will work only with Apple Pencil.  We need to add one more property to our `CanvasView` to make it work with our Finger, considering not every user has Apple Pencil.
+With this implementation, we can draw Markups, only with Apple Pencil. We need to set one more property of `CanvasView` to make it work with our Finger, considering not every user has Apple Pencil.
 
 ```
 self.canvasView.allowsFingerDrawing = true
 ```
 
-So now we can even draw over our image using our finger as well. So let me draw something over the image.
+So now we can draw over the image using our finger as well. Now after all the above steps, our Image Markup ViewController will look like :
 
 <img src="./resources/image3.jpg" width="350" align="center"> 
 
-After editing we have to save our image with markup we do over the image. From `CanvasView` view get a transparent image with our drawing and we have to merge it over our existing image. For this we have written a function :
+After editing we have to save the Image with the drawn Markups. For this, first, we will get an output image of our drawing from `PencilKit`. The image we get from PencilKit will be a PNG image with transparency. After that, we will draw the PNG Image as an overlay on our selected image. For this we have a function :
 
 
 ```
@@ -164,7 +162,7 @@ func saveImage(drawing : UIImage) -> UIImage? {
 }
 ```
 
-From saveImage(drawing:) method you will get a Markedup Image and you can save it or share it as per your requirement. 
+From saveImage(drawing:) method we will get a Markedup Image that we can save in the device or share it as per our requirement.
 
 
 
