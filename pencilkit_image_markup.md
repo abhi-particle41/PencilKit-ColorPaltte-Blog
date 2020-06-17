@@ -132,7 +132,7 @@ self.canvasView.allowsFingerDrawing = true
 
 So now we can draw over the image using our finger as well. Now after all the above steps, our Image Markup ViewController will look like :
 
-<img src="./resources/image3.gif" width="350" align="center"> 
+<img src="./resources/image3.gif" width="500" align="center"> 
 
 After editing we have to save the Image with the drawn Markups. For this, first, we will get an output image of our drawing from `PencilKit`. The image we get from PencilKit will be a PNG image with transparency. After that, we will draw the PNG Image as an overlay on our selected image. For this we have a function :
 
