@@ -29,7 +29,9 @@ We read many tutorials and watched videos to understand the working and implemen
 ### Findings
 We went through the implementation details of PencilKit, Apple Docs, and PencilKit's Classes, Subclasses, and properties to find a way to insert an existing image in PencilKit's CanvasView and get the output as marked-up Image.
 
-We also tried to look for some similar third party library but, no third party tool was found which can address our problem.
+ - PencilKit creates a separate window for tool picker, over our current window.
+ - PencilKit's CanvasView has many sublayers and has a complex structure.
+ - No similar third party tool with the same feature was found.
 
 ### Available Approaches
 We discussed with the team and decided that we will try to build a custom solution for Image Markup using PencilKit.
@@ -180,4 +182,3 @@ However, with so many things coming out of the box, you don’t have a lot of fl
 PencilKit is a great new framework, which provides a lot of drawing functionality out-of-the-box and It’s easy to get started and to integrate it in an app. PencilKit works seamlessly with Apple Pencil and it has high precision and low latency. With PencilKit, instead of re-inventing the wheel, you can focus on your app’s unique features. 
 
 It has some limitations which Apple should consider and work upon that.
-
